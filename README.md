@@ -1,13 +1,12 @@
-# 📦 Streamlit App Starter Kit 
-```
-⬆️ (Replace above with your app's name)
-```
+# Bank Churn Prediction 
 
-Description of the app ...
+
+
+This is a churn prediction ML app for banks
 
 ## Demo App
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://NPMLChurnPredictionApp.streamlit.app/)
 
 ## GitHub Codespaces
 
