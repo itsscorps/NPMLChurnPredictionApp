@@ -1,8 +1,6 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 import joblib
-from sklearn.ensemble import GradientBoostingClassifier
 
 st.title('Bank Customer Churn Prediction APP')
 st.info('This app predicts whether a customer will churn using Gradient Boosting!')
@@ -23,14 +21,18 @@ with st.expander('Data'):
 
 # Data Visualization
 with st.expander('Data visualization'):
-     st.write('**Age vs Balance (colored by Exited)**')
-     st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
-     st.write('**Credit Score vs Number of Products (colored by Exited)**')
-     st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
+    st.write('**Age vs Balance (colored by Exited)**')
+    st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
+    st.write('**Credit Score vs Number of Products (colored by Exited)**')
+    st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
 
-# Sidebar for input
-geography = st.selectbox("Select Geography", ["France", "Germany", "Spain"])
-geo_dict = {
+# ---------------- Sidebar inputs ----------------
+with st.sidebar:
+    st.header("Input Features")
+
+    # Geography
+    geography = st.selectbox("Select Geography", ["France", "Germany", "Spain"])
+    geo_dict = {
         "France": {"Geography_Germany": 0, "Geography_Spain": 0},
         "Germany": {"Geography_Germany": 1, "Geography_Spain": 0},
         "Spain": {"Geography_Germany": 0, "Geography_Spain": 1}
@@ -48,35 +50,4 @@ geo_dict = {
     NumOfProducts = st.slider("Number of Products", 1, 4, 1)
     HasCrCard = st.selectbox("Has Credit Card", [0, 1])
     IsActiveMember = st.selectbox("Is Active Member", [0, 1])
-    EstimatedSalary = st.slider("Estimated Salary", 0.0, 200000.0, 100000.0, step=1000.0)
-
-    # Combine into dict
-    input_data = {
-        "CreditScore": CreditScore,
-        "Gender": gender_val,
-        "Age": Age,
-        "Tenure": Tenure,
-        "Balance": Balance,
-        "NumOfProducts": NumOfProducts,
-        "HasCrCard": HasCrCard,
-        "IsActiveMember": IsActiveMember,
-        "EstimatedSalary": EstimatedSalary,
-        **geo_dict[geography]
-    }
-
-# Convert input to DataFrame
-input_df = pd.DataFrame([input_data])
-
-# Load trained model
-model = joblib.load("gbchurn_model.pkl")
-
-# Make prediction
-prediction = model.predict(input_df)[0]  # 0 = Not churn, 1 = Churn
-prediction_proba = model.predict_proba(input_df)[0][1]  # Probability of churn
-
-# Display result
-st.subheader("Prediction")
-if prediction == 1:
-    st.error(f"🚨 The customer is likely to churn. Probability: {prediction_proba:.2%}")
-else:
-    st.success(f"✅ The customer is NOT likely to churn. Probability: {prediction_proba:.2%}")
+    EstimatedSalary = st.slider("Estimated Salar
