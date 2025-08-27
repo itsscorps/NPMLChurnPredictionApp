@@ -27,7 +27,7 @@ with st.expander('Data visualization'):
 
 # Input features
 with st.sidebar:
-  st.header('Input features')
+    st.header('Input features')
   # Geography
     geography = st.selectbox("Select Geography", ["France", "Germany", "Spain"])
 
