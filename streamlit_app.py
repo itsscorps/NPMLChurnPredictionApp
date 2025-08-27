@@ -30,7 +30,7 @@ with st.expander('Data visualization'):
 
 # Sidebar for input
 geography = st.selectbox("Select Geography", ["France", "Germany", "Spain"])
-    geo_dict = {
+geo_dict = {
         "France": {"Geography_Germany": 0, "Geography_Spain": 0},
         "Germany": {"Geography_Germany": 1, "Geography_Spain": 0},
         "Spain": {"Geography_Germany": 0, "Geography_Spain": 1}
