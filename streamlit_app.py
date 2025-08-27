@@ -4,10 +4,15 @@ import pandas as pd
 import joblib
 from sklearn.ensemble import GradientBoostingClassifier
 
+# -------------------------------
+# APP TITLE AND DESCRIPTION
+# -------------------------------
 st.title('Bank Customer Churn Prediction App')
 st.info('This app predicts whether a customer will churn using a trained Gradient Boosting model.')
 
-# Load dataset for exploration
+# -------------------------------
+# LOAD AND EXPLORE DATA
+# -------------------------------
 with st.expander('Data'):
     st.write('**Raw data**')
     df = pd.read_csv(
@@ -15,25 +20,32 @@ with st.expander('Data'):
     )
     st.dataframe(df)
 
+    # Show features (X)
     st.write('**X (Features)**')
     X_raw = df.drop('Exited', axis=1)
     st.dataframe(X_raw)
 
+    # Show target (y)
     st.write('**y (Target)**')
     y_raw = df.Exited
     st.dataframe(y_raw)
 
-# Data Visualization
+# -------------------------------
+# DATA VISUALIZATION
+# -------------------------------
 with st.expander('Data Visualization'):
     st.write('**Age vs Balance (colored by Exited)**')
     st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
+
     st.write('**Credit Score vs Number of Products (colored by Exited)**')
     st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
 
-# Sidebar for input
+# -------------------------------
+# SIDEBAR FOR USER INPUT
+# -------------------------------
 st.sidebar.header("Input Features")
 
-# Geography
+# Geography (One-Hot Encoded: France = baseline)
 geography = st.sidebar.selectbox("Select Geography", ["France", "Germany", "Spain"])
 geo_dict = {
     "France": {"Geography_Germany": 0, "Geography_Spain": 0},
@@ -41,11 +53,11 @@ geo_dict = {
     "Spain": {"Geography_Germany": 0, "Geography_Spain": 1}
 }
 
-# Gender
+# Gender (Binary Encoding: Female = 0, Male = 1)
 gender = st.sidebar.selectbox("Gender", ["Female", "Male"])
 gender_val = 1 if gender == "Male" else 0
 
-# Numeric inputs
+# Numerical input sliders
 CreditScore = st.sidebar.slider("Credit Score", 300, 900, 650)
 Age = st.sidebar.slider("Age", 18, 100, 40)
 Tenure = st.sidebar.slider("Tenure (years)", 0, 10, 5)
@@ -55,7 +67,7 @@ HasCrCard = st.sidebar.selectbox("Has Credit Card", [0, 1])
 IsActiveMember = st.sidebar.selectbox("Is Active Member", [0, 1])
 EstimatedSalary = st.sidebar.slider("Estimated Salary", 0.0, 200000.0, 100000.0, step=1000.0)
 
-# Combine into dict
+# Combine all inputs into a dictionary
 input_data = {
     "CreditScore": CreditScore,
     "Gender": gender_val,
@@ -66,46 +78,59 @@ input_data = {
     "HasCrCard": HasCrCard,
     "IsActiveMember": IsActiveMember,
     "EstimatedSalary": EstimatedSalary,
-    **geo_dict[geography]
+    **geo_dict[geography]  # Add one-hot encoded geography
 }
 
-# Convert input to DataFrame
+# Convert to DataFrame (needed for sklearn)
 input_df = pd.DataFrame([input_data])
 
-# Ensure input_df matches training feature columns
+# -------------------------------
+# ALIGN COLUMNS WITH TRAINING DATA
+# -------------------------------
+# Ensure input_df has same feature columns as training dataset
 df_train = pd.read_csv(
     'https://raw.githubusercontent.com/itsscorps/NPMLChurnPredictionApp/refs/heads/master/cleaned_dataset.csv'
 )
 feature_columns = df_train.drop("Exited", axis=1).columns
 input_df = input_df.reindex(columns=feature_columns, fill_value=0)
 
-# Load trained model
+# -------------------------------
+# LOAD TRAINED MODEL
+# -------------------------------
 model = joblib.load("gbchurn_model.pkl")
 
-# Make prediction
-prediction = model.predict(input_df)[0]  # 0 = Not churn, 1 = Churn
-prediction_proba = model.predict_proba(input_df)[0][1]  # Probability of churn
+# -------------------------------
+# MAKE PREDICTION
+# -------------------------------
+prediction = model.predict(input_df)[0]  # Predicted class: 0 = Not churn, 1 = Churn
+prediction_proba = model.predict_proba(input_df)[0][1]  # Probability of churn (class = 1)
 
-# Display results
+# -------------------------------
+# DISPLAY RESULTS
+# -------------------------------
 st.subheader("Prediction Result")
 if prediction == 1:
     st.error(f"The customer is likely to churn.\nProbability of churn: {prediction_proba:.2%}")
 else:
     st.success(f"The customer is NOT likely to churn.\nProbability of churn: {prediction_proba:.2%}")
 
-# Show probability breakdown
+# -------------------------------
+# DISPLAY PROBABILITY TABLE
+# -------------------------------
+# Create probability dataframe
 df_prediction_proba = pd.DataFrame([{
     "Not Churn": 1 - prediction_proba,
     "Churn": prediction_proba
 }])
 
+# Show probabilities with progress bars
 st.subheader("Prediction Probabilities")
 st.dataframe(
     df_prediction_proba,
     column_config={
         "Not Churn": st.column_config.ProgressColumn(
             "Not Churn",
-            format="%.2f",
+            format="%.2f",  # Show decimals (can be changed to percentage if needed)
             min_value=0,
             max_value=1,
         ),
