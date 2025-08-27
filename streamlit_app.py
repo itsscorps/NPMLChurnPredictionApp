@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import GradientBoostongClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 
 st.title('Bank Customer Churn Prediction APP')
 st.info('This is app builds a machine learning model!')
