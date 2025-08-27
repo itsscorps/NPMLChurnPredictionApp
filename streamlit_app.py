@@ -32,6 +32,17 @@ with st.expander('Data Visualization'):
 # ------------------ Sidebar for input ------------------
 st.sidebar.header("🔧 Input Features")
 
+CreditScore = st.sidebar.slider("Credit Score", 300, 900, 650)
+# Gender
+gender = st.sidebar.selectbox("Gender", ["Female", "Male"])
+gender_val = 1 if gender == "Male" else 0
+Age = st.sidebar.slider("Age", 18, 100, 40)
+Tenure = st.sidebar.slider("Tenure (years)", 0, 10, 5)
+Balance = st.sidebar.slider("Balance", 0.0, 250000.0, 50000.0, step=1000.0)
+NumOfProducts = st.sidebar.slider("Number of Products", 1, 4, 1)
+HasCrCard = st.sidebar.selectbox("Has Credit Card", [0, 1])
+IsActiveMember = st.sidebar.selectbox("Is Active Member", [0, 1])
+EstimatedSalary = st.sidebar.slider("Estimated Salary", 0.0, 200000.0, 100000.0, step=1000.0)
 # Geography
 geography = st.sidebar.selectbox("Select Geography", ["France", "Germany", "Spain"])
 geo_dict = {
@@ -40,19 +51,12 @@ geo_dict = {
     "Spain": {"Geography_Germany": 0, "Geography_Spain": 1}
 }
 
-# Gender
-gender = st.sidebar.selectbox("Gender", ["Female", "Male"])
-gender_val = 1 if gender == "Male" else 0
+
 
 # Numeric inputs
-CreditScore = st.sidebar.slider("Credit Score", 300, 900, 650)
-Age = st.sidebar.slider("Age", 18, 100, 40)
-Tenure = st.sidebar.slider("Tenure (years)", 0, 10, 5)
-Balance = st.sidebar.slider("Balance", 0.0, 250000.0, 50000.0, step=1000.0)
-NumOfProducts = st.sidebar.slider("Number of Products", 1, 4, 1)
-HasCrCard = st.sidebar.selectbox("Has Credit Card", [0, 1])
-IsActiveMember = st.sidebar.selectbox("Is Active Member", [0, 1])
-EstimatedSalary = st.sidebar.slider("Estimated Salary", 0.0, 200000.0, 100000.0, step=1000.0)
+
+
+
 
 # Combine into dict
 input_data = {
