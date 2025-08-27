@@ -11,3 +11,15 @@ with st.expander('Data'):
  df = pd.read_csv('https://raw.githubusercontent.com/itsscorps/NPMLChurnPredictionApp/refs/heads/master/cleaned_dataset.csv')
  df
 
+ st.write('**X**')
+ X_raw = df.drop('species', axis=1)
+ X_raw
+
+ st.write('**y**')
+ y_raw = df.species
+ y_raw
+
+
+
+
+
