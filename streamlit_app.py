@@ -20,7 +20,10 @@ with st.expander('Data'):
  y_raw
 
 with st.expander('Data visualization'):
+  st.write('**Age and Balance**')
   st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
+  st.write('**Credit Score and Has Credit Card or not**')
+  st.scatter_chart(data=df, x='HasCrCard', y='CreditScore', color='Exited')
 
 
 
