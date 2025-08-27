@@ -4,15 +4,15 @@ import pandas as pd
 import joblib
 from sklearn.ensemble import GradientBoostingClassifier
 
-# -------------------------------
+
 # APP TITLE AND DESCRIPTION
-# -------------------------------
+
 st.title('Bank Customer Churn Prediction App')
 st.info('This app predicts whether a customer will churn using a trained Gradient Boosting model.')
 
-# -------------------------------
+
 # LOAD AND EXPLORE DATA
-# -------------------------------
+
 with st.expander('Data'):
     st.write('**Raw data**')
     df = pd.read_csv(
@@ -30,9 +30,9 @@ with st.expander('Data'):
     y_raw = df.Exited
     st.dataframe(y_raw)
 
-# -------------------------------
+
 # DATA VISUALIZATION
-# -------------------------------
+
 with st.expander('Data Visualization'):
     st.write('**Age vs Balance (colored by Exited)**')
     st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
@@ -40,9 +40,9 @@ with st.expander('Data Visualization'):
     st.write('**Credit Score vs Number of Products (colored by Exited)**')
     st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
 
-# -------------------------------
+
 # SIDEBAR FOR USER INPUT
-# -------------------------------
+
 st.sidebar.header("Input Features")
 
 # Geography (One-Hot Encoded: France = baseline)
@@ -84,9 +84,9 @@ input_data = {
 # Convert to DataFrame (needed for sklearn)
 input_df = pd.DataFrame([input_data])
 
-# -------------------------------
+
 # ALIGN COLUMNS WITH TRAINING DATA
-# -------------------------------
+
 # Ensure input_df has same feature columns as training dataset
 df_train = pd.read_csv(
     'https://raw.githubusercontent.com/itsscorps/NPMLChurnPredictionApp/refs/heads/master/cleaned_dataset.csv'
@@ -94,29 +94,26 @@ df_train = pd.read_csv(
 feature_columns = df_train.drop("Exited", axis=1).columns
 input_df = input_df.reindex(columns=feature_columns, fill_value=0)
 
-# -------------------------------
+
 # LOAD TRAINED MODEL
-# -------------------------------
 model = joblib.load("gbchurn_model.pkl")
 
-# -------------------------------
+
 # MAKE PREDICTION
-# -------------------------------
 prediction = model.predict(input_df)[0]  # Predicted class: 0 = Not churn, 1 = Churn
 prediction_proba = model.predict_proba(input_df)[0][1]  # Probability of churn (class = 1)
 
-# -------------------------------
+
 # DISPLAY RESULTS
-# -------------------------------
 st.subheader("Prediction Result")
 if prediction == 1:
     st.error(f"The customer is likely to churn.\nProbability of churn: {prediction_proba:.2%}")
 else:
     st.success(f"The customer is NOT likely to churn.\nProbability of churn: {prediction_proba:.2%}")
 
-# -------------------------------
+
 # DISPLAY PROBABILITY TABLE
-# -------------------------------
+
 # Create probability dataframe
 df_prediction_proba = pd.DataFrame([{
     "Not Churn": 1 - prediction_proba,
