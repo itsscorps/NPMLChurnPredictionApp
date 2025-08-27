@@ -29,11 +29,7 @@ with st.expander('Data visualization'):
     st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
 
 # Sidebar for input
-with st.sidebar:
-    st.header('Input features')
-
-    # Geography
-    geography = st.selectbox("Select Geography", ["France", "Germany", "Spain"])
+geography = st.selectbox("Select Geography", ["France", "Germany", "Spain"])
     geo_dict = {
         "France": {"Geography_Germany": 0, "Geography_Spain": 0},
         "Germany": {"Geography_Germany": 1, "Geography_Spain": 0},
