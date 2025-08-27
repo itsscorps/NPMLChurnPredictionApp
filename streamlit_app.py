@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import joblib
 from sklearn.ensemble import GradientBoostingClassifier
 
 st.title('Bank Customer Churn Prediction APP')
