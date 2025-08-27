@@ -23,10 +23,10 @@ with st.expander('Data'):
 
 # Data Visualization
 with st.expander('Data visualization'):
-    st.write('**Age vs Balance (colored by Exited)**')
-    st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
-    st.write('**Credit Score vs Number of Products (colored by Exited)**')
-    st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
+     st.write('**Age vs Balance (colored by Exited)**')
+     st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
+     st.write('**Credit Score vs Number of Products (colored by Exited)**')
+     st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
 
 # Sidebar for input
 geography = st.selectbox("Select Geography", ["France", "Germany", "Spain"])
