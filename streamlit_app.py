@@ -19,7 +19,8 @@ with st.expander('Data'):
  y_raw = df.Exited
  y_raw
 
-
+with st.expander('Data visualization'):
+  st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
 
 
 
