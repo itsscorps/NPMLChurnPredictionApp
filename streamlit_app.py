@@ -50,4 +50,4 @@ with st.sidebar:
     NumOfProducts = st.slider("Number of Products", 1, 4, 1)
     HasCrCard = st.selectbox("Has Credit Card", [0, 1])
     IsActiveMember = st.selectbox("Is Active Member", [0, 1])
-    EstimatedSalary = st.slider("Estimated Salar
+    EstimatedSalary = st.slider("Estimated Salary", 0.0, 200000.0, 100000.0, step=1000.0)
