@@ -1,5 +1,7 @@
 import streamlit as st
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 import pandas as pd
 import joblib
 from sklearn.ensemble import GradientBoostingClassifier
@@ -63,7 +65,6 @@ with st.expander('Data Visualization'):
     fig, ax = plt.subplots()
     sns.countplot(x='IsActiveMember', hue='Exited', data=df, ax=ax)
     st.pyplot(fig)
-
 
 # SIDEBAR FOR USER INPUT
 
