@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 import joblib
@@ -36,35 +35,32 @@ with st.expander('Data'):
 # DATA VISUALIZATION
 
 with st.expander('Data Visualization'):
+    
     st.write('### Exited vs Balance')
-    st.write('Boxplot showing how Balance differs between churned and retained customers')
-    fig, ax = plt.subplots()
-    sns.boxplot(x='Exited', y='Balance', data=df, ax=ax)
-    st.pyplot(fig)
+    st.write('Average Balance by Exited')
+    balance_mean = df.groupby('Exited')['Balance'].mean()
+    st.bar_chart(balance_mean)
 
     st.write('### Exited vs Credit Score')
-    st.write('Boxplot showing CreditScore distribution by churn status')
-    fig, ax = plt.subplots()
-    sns.boxplot(x='Exited', y='CreditScore', data=df, ax=ax)
-    st.pyplot(fig)
+    st.write('Average Credit Score by Exited')
+    credit_mean = df.groupby('Exited')['CreditScore'].mean()
+    st.bar_chart(credit_mean)
 
     st.write('### Exited vs Age')
-    st.write('Boxplot showing Age distribution by churn status')
-    fig, ax = plt.subplots()
-    sns.boxplot(x='Exited', y='Age', data=df, ax=ax)
-    st.pyplot(fig)
+    st.write('Average Age by Exited')
+    age_mean = df.groupby('Exited')['Age'].mean()
+    st.bar_chart(age_mean)
 
     st.write('### Exited vs Number of Products')
-    st.write('Countplot showing number of products per churn status')
-    fig, ax = plt.subplots()
-    sns.countplot(x='NumOfProducts', hue='Exited', data=df, ax=ax)
-    st.pyplot(fig)
+    st.write('Number of customers per NumOfProducts grouped by Exited')
+    prod_counts = df.groupby(['NumOfProducts', 'Exited']).size().unstack(fill_value=0)
+    st.bar_chart(prod_counts)
 
     st.write('### Exited vs IsActiveMember')
-    st.write('Bar chart showing churn by active membership')
-    fig, ax = plt.subplots()
-    sns.countplot(x='IsActiveMember', hue='Exited', data=df, ax=ax)
-    st.pyplot(fig)
+    st.write('Number of customers per IsActiveMember grouped by Exited')
+    active_counts = df.groupby(['IsActiveMember', 'Exited']).size().unstack(fill_value=0)
+    st.bar_chart(active_counts)
+
 
 # SIDEBAR FOR USER INPUT
 
