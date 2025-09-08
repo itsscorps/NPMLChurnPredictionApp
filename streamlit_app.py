@@ -34,7 +34,7 @@ with st.expander('Data'):
 # DATA VISUALIZATION
 
 with st.expander('Data Visualization'):
-   st.write('### Exited vs Balance')
+    st.write('### Exited vs Balance')
     st.write('Boxplot showing how Balance differs between churned and retained customers')
     fig, ax = plt.subplots()
     sns.boxplot(x='Exited', y='Balance', data=df, ax=ax)
