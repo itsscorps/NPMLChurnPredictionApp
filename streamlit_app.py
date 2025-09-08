@@ -38,27 +38,27 @@ with st.expander('Data Visualization'):
     st.write('### Exited vs Balance')
     st.write('Average Balance by Exited')
     balance_mean = df.groupby('Exited')['Balance'].mean()
-    st.bar_chart(balance_mean)
+    st.line_chart(balance_mean)
 
     st.write('### Exited vs Credit Score')
     st.write('Average Credit Score by Exited')
     credit_mean = df.groupby('Exited')['CreditScore'].mean()
-    st.bar_chart(credit_mean)
+    st.line_chart(credit_mean)
 
     st.write('### Exited vs Age')
     st.write('Average Age by Exited')
     age_mean = df.groupby('Exited')['Age'].mean()
-    st.bar_chart(age_mean)
+    st.line_chart(age_mean)
 
     st.write('### Exited vs Number of Products')
     st.write('Number of customers per NumOfProducts grouped by Exited')
     prod_counts = df.groupby(['NumOfProducts', 'Exited']).size().unstack(fill_value=0)
-    st.bar_chart(prod_counts)
+    st.line_chart(prod_counts)
 
     st.write('### Exited vs IsActiveMember')
     st.write('Number of customers per IsActiveMember grouped by Exited')
     active_counts = df.groupby(['IsActiveMember', 'Exited']).size().unstack(fill_value=0)
-    st.bar_chart(active_counts)
+    st.line_chart(active_counts)
 
 
 # SIDEBAR FOR USER INPUT
