@@ -34,8 +34,8 @@ with st.expander('Data'):
 # DATA VISUALIZATION
 
 with st.expander('Data Visualization'):
-    st.write('**Age vs Balance (colored by Exited)**')
-    st.scatter_chart(data=df, x='Balance', y='Age', color='Exited')
+    st.write('**Exited vs Balance (colored by Exited)**')
+    st.scatter_chart(data=df, x='Balance', y='Exited', color='Exited')
 
     st.write('**Credit Score vs Number of Products (colored by Exited)**')
     st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
