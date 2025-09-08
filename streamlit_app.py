@@ -34,11 +34,35 @@ with st.expander('Data'):
 # DATA VISUALIZATION
 
 with st.expander('Data Visualization'):
-    st.write('**Exited vs Balance (colored by Exited)**')
-    st.scatter_chart(data=df, x='Balance', y='Exited', color='Exited')
+   st.write('### Exited vs Balance')
+    st.write('Boxplot showing how Balance differs between churned and retained customers')
+    fig, ax = plt.subplots()
+    sns.boxplot(x='Exited', y='Balance', data=df, ax=ax)
+    st.pyplot(fig)
 
-    st.write('**Credit Score vs Number of Products (colored by Exited)**')
-    st.scatter_chart(data=df, x='NumOfProducts', y='CreditScore', color='Exited')
+    st.write('### Exited vs Credit Score')
+    st.write('Boxplot showing CreditScore distribution by churn status')
+    fig, ax = plt.subplots()
+    sns.boxplot(x='Exited', y='CreditScore', data=df, ax=ax)
+    st.pyplot(fig)
+
+    st.write('### Exited vs Age')
+    st.write('Boxplot showing Age distribution by churn status')
+    fig, ax = plt.subplots()
+    sns.boxplot(x='Exited', y='Age', data=df, ax=ax)
+    st.pyplot(fig)
+
+    st.write('### Exited vs Number of Products')
+    st.write('Countplot showing number of products per churn status')
+    fig, ax = plt.subplots()
+    sns.countplot(x='NumOfProducts', hue='Exited', data=df, ax=ax)
+    st.pyplot(fig)
+
+    st.write('### Exited vs IsActiveMember')
+    st.write('Bar chart showing churn by active membership')
+    fig, ax = plt.subplots()
+    sns.countplot(x='IsActiveMember', hue='Exited', data=df, ax=ax)
+    st.pyplot(fig)
 
 
 # SIDEBAR FOR USER INPUT
