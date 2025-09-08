@@ -107,9 +107,9 @@ prediction_proba = model.predict_proba(input_df)[0][1]  # Probability of churn (
 # DISPLAY RESULTS
 st.subheader("Prediction Result")
 if prediction == 1:
-    st.error(f"The customer is likely to churn.\nProbability of churn: {prediction_proba:.2%}")
+    st.error(f"Probability of churn: {prediction_proba:.2%}")
 else:
-    st.success(f"The customer is NOT likely to churn.\nProbability of churn: {prediction_proba:.2%}")
+    st.success(f"Probability of churn: {prediction_proba:.2%}")
 
 
 # DISPLAY PROBABILITY TABLE
