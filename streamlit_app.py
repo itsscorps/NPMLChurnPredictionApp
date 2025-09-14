@@ -55,11 +55,6 @@ with st.expander('Data Visualization'):
     prod_counts = df.groupby(['NumOfProducts', 'Exited']).size().unstack(fill_value=0)
     st.line_chart(prod_counts)
 
-    st.write('### Exited vs IsActiveMember')
-    st.write('Number of customers per IsActiveMember grouped by Exited')
-    active_counts = df.groupby(['IsActiveMember', 'Exited']).size().unstack(fill_value=0)
-    st.line_chart(active_counts)
-
 
 # SIDEBAR FOR USER INPUT
 
