@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import joblib
-import alter as alt
+import altair as alt
 from sklearn.ensemble import GradientBoostingClassifier
 
 
