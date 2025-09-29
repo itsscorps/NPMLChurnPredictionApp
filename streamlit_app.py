@@ -1,4 +1,4 @@
-import streamlit as st
+ import streamlit as st
 import numpy as np
 import pandas as pd
 import joblib
@@ -40,7 +40,7 @@ with st.expander('Data Visualization'):
     balance_mean = df.groupby('Exited')['Balance'].mean()
     st.line_chart(balance_mean)
 
-   st.scatter_chart(df, x="Age", y="Balance", color="Exited")
+    st.scatter_chart(df, x="Age", y="Balance", color="Exited")
 
 
 
