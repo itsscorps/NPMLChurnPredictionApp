@@ -39,7 +39,7 @@ with st.expander('Data Visualization'):
     st.write('Average Balance by Exited')
     balance_mean = df.groupby('Exited')['Balance'].mean()
     st.line_chart(balance_mean)
-
+    
     st.scatter_chart(df, x="Age", y="Balance", color="Exited")
 
 
