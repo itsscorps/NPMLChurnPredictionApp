@@ -34,16 +34,14 @@ with st.expander('Data'):
 # DATA VISUALIZATION
 
 with st.expander('Data Visualization'):
+      
+    st.scatter_chart(df, x="Age", y="Balance", color="Exited")
     
     st.write('### Exited vs Balance')
     st.write('Average Balance by Exited')
     balance_mean = df.groupby('Exited')['Balance'].mean()
     st.line_chart(balance_mean)
     
-    st.scatter_chart(df, x="Age", y="Balance", color="Exited")
-
-
-
     st.write('### Exited vs Credit Score')
     st.write('Average Credit Score by Exited')
     credit_mean = df.groupby('Exited')['CreditScore'].mean()
