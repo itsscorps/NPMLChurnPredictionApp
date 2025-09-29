@@ -60,12 +60,12 @@ with st.expander('Data Visualization'):
 
     chart = alt.Chart(df).mark_circle(size=60).encode(
     x="CreditScore",
-    y="Tenure",
+    y="NumOfProducts",
     color=alt.Color("Exited:N",
                     scale=alt.Scale(domain=[0, 1], range=["#1f77b4", "#d62728"]),  # blue for 0, red for 1
                     legend=alt.Legend(title="Churn (Exited)"))
     ).properties(
-    title="Balance vs Age Colored by Churn"
+    title="CreditScore vs Number of Products Colored by Churn"
     )
 
     st.altair_chart(chart, use_container_width=True)
