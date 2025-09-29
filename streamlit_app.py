@@ -40,7 +40,8 @@ with st.expander('Data Visualization'):
     balance_mean = df.groupby('Exited')['Balance'].mean()
     st.line_chart(balance_mean)
 
-    st.scatter_chart(df, x="Exited", y="Balance")
+   st.scatter_chart(df, x="Age", y="Balance", color="Exited")
+
 
 
     st.write('### Exited vs Credit Score')
