@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import joblib
+import alter as alt
 from sklearn.ensemble import GradientBoostingClassifier
 
 
@@ -35,7 +36,17 @@ with st.expander('Data'):
 
 with st.expander('Data Visualization'):
       
-    st.scatter_chart(df, x="Age", y="Balance", color="Exited")
+    chart = alt.Chart(df).mark_circle(size=60).encode(
+    x="Age",
+    y="Balance",
+    color=alt.Color("Exited:N",
+                    scale=alt.Scale(domain=[0, 1], range=["#1f77b4", "#d62728"]),  # blue for 0, red for 1
+                    legend=alt.Legend(title="Churn (Exited)"))
+    ).properties(
+    title="Balance vs Age Colored by Churn"
+    )
+
+    st.altair_chart(chart, use_container_width=True)
     
     st.write('### Exited vs Balance')
     st.write('Average Balance by Exited')
@@ -46,7 +57,19 @@ with st.expander('Data Visualization'):
     st.write('Average Age by Exited')
     age_mean = df.groupby('Exited')['Age'].mean()
     st.line_chart(age_mean)
-    
+
+    chart = alt.Chart(df).mark_circle(size=60).encode(
+    x="CreditScore",
+    y="Tenure",
+    color=alt.Color("Exited:N",
+                    scale=alt.Scale(domain=[0, 1], range=["#1f77b4", "#d62728"]),  # blue for 0, red for 1
+                    legend=alt.Legend(title="Churn (Exited)"))
+    ).properties(
+    title="Balance vs Age Colored by Churn"
+    )
+
+    st.altair_chart(chart, use_container_width=True)
+
     st.write('### Exited vs Credit Score')
     st.write('Average Credit Score by Exited')
     credit_mean = df.groupby('Exited')['CreditScore'].mean()
