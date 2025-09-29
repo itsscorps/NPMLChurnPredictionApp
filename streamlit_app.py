@@ -41,16 +41,16 @@ with st.expander('Data Visualization'):
     st.write('Average Balance by Exited')
     balance_mean = df.groupby('Exited')['Balance'].mean()
     st.line_chart(balance_mean)
-    
-    st.write('### Exited vs Credit Score')
-    st.write('Average Credit Score by Exited')
-    credit_mean = df.groupby('Exited')['CreditScore'].mean()
-    st.line_chart(credit_mean)
 
     st.write('### Exited vs Age')
     st.write('Average Age by Exited')
     age_mean = df.groupby('Exited')['Age'].mean()
     st.line_chart(age_mean)
+    
+    st.write('### Exited vs Credit Score')
+    st.write('Average Credit Score by Exited')
+    credit_mean = df.groupby('Exited')['CreditScore'].mean()
+    st.line_chart(credit_mean)
 
     st.write('### Exited vs Number of Products')
     st.write('Number of customers per NumOfProducts grouped by Exited')
