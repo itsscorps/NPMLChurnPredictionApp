@@ -362,7 +362,13 @@ st.markdown(
 
 st.header("Dataset Prediction")
 
-st.info("Upload a CSV file with customer data to predict churn for all customers using the trained model.")
+st.markdown(
+    '<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
+    'Upload a CSV file with customer data to predict churn for all customers using the trained model.'
+    '</div>',
+    unsafe_allow_html=True
+)
+
 
 # File uploader
 uploaded_file = st.file_uploader("Upload Customer Dataset (.csv)", type=["csv"])
