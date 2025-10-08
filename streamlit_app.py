@@ -1,19 +1,41 @@
 import streamlit as st
-# Add this near the top of your Streamlit script (after importing streamlit)
 st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("https://images.unsplash.com/photo-1521791136064-7986c2920216");
+        background-image: 
+            linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url("https://images.unsplash.com/photo-1521791136064-7986c2920216");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        color: white;  /* Make all default text white */
+    }
+
+    /* Optional: make titles stand out */
+    h1, h2, h3, h4, h5, h6 {
+        color: #f9f9f9 !important;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    /* Optional: adjust info boxes for better contrast */
+    .stAlert {
+        background-color: rgba(255, 255, 255, 0.85) !important;
+        color: black !important;
+        border-radius: 10px;
+    }
+
+    /* Sidebar styling */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0, 0, 0, 0.6) !important;
+        color: white;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 
