@@ -44,7 +44,7 @@ with st.expander('Data Visualization'):
     """)
 
     # 1️⃣ Churn Rate by Age Group
-    df["AgeGroup"] = pd.cut(df["Age"], bins=[18, 30, 40, 50, 60, 100], 
+    df["AgeGroup"] = pd.cut(df["Age"], bins=[18, 30, 40, 50, 60, 100],
                             labels=["18-30", "31-40", "41-50", "51-60", "60+"])
     churn_by_age = df.groupby("AgeGroup")["Exited"].mean().reset_index()
 
@@ -77,18 +77,29 @@ with st.expander('Data Visualization'):
     st.caption("Inactive members have a much higher chance of leaving the bank.")
 
     # 5️⃣ Churn Rate by Gender
-    churn_by_gender = df.groupby("Gender")["Exited"].mean().reset_index()
+    # Handle Gender column (if it's 0/1 numeric)
+    if df["Gender"].dtype in [int, float]:
+        df["Gender"] = df["Gender"].map({0: "Female", 1: "Male"})
 
+    churn_by_gender = df.groupby("Gender")["Exited"].mean().reset_index()
     st.write("### 5. Churn Rate by Gender")
     st.bar_chart(churn_by_gender.set_index("Gender"))
     st.caption("There are slight differences in churn rate between male and female customers.")
 
-    # 6️⃣ Churn Rate by Country
-    churn_by_geo = df.groupby("Geography")["Exited"].mean().reset_index()
+    # 6️⃣ Churn Rate by Country (handle one-hot encoded Geography)
+    if "Geography" in df.columns:
+        churn_by_geo = df.groupby("Geography")["Exited"].mean().reset_index()
+    else:
+        # Reconstruct pseudo Geography column from one-hot encoded columns
+        df["Geography"] = "France"  # default baseline
+        df.loc[df["Geography_Germany"] == 1, "Geography"] = "Germany"
+        df.loc[df["Geography_Spain"] == 1, "Geography"] = "Spain"
+        churn_by_geo = df.groupby("Geography")["Exited"].mean().reset_index()
 
     st.write("### 6. Churn Rate by Country")
     st.bar_chart(churn_by_geo.set_index("Geography"))
     st.caption("German customers show the highest churn rate, while French customers are the most stable.")
+
 
 # SIDEBAR FOR USER INPUT
 
