@@ -182,7 +182,6 @@ st.dataframe(
     },
     hide_index=True
 )
-
 # ================================
 # SECTION: DATASET PREDICTION
 # ================================
@@ -205,12 +204,9 @@ if uploaded_file is not None:
         feature_columns = df_train.drop("Exited", axis=1).columns
         user_df = user_df.reindex(columns=feature_columns, fill_value=0)
 
-        # Copy only feature columns for prediction
-        user_features = user_df.copy()
-
-        # Make churn predictions safely
-        user_df["Churn_Prediction"] = model.predict(user_features)
-        user_df["Churn_Probability"] = model.predict_proba(user_features)[:, 1]
+        # Make churn predictions
+        user_df["Churn_Prediction"] = model.predict(user_df)
+        user_df["Churn_Probability"] = model.predict_proba(user_df)[:, 1]
 
         # Display prediction summary
         st.write("### Predictions Summary")
@@ -270,4 +266,15 @@ if uploaded_file is not None:
           compared to {avg_age_non:.1f} for those not likely to churn.
         - Their **average balance** is around **${avg_balance_churn:,.0f}**, 
           compared to **${avg_balance_non:,.0f}** for non-churning customers.
-        - Overall churn rate in the uploaded dataset is **{
+        - Overall churn rate in the uploaded dataset is **{churn_rate:.2f}%**.
+        """
+        st.markdown(pattern_text)
+
+        st.success("✅ Dataset prediction and analysis complete!")
+
+    except Exception as e:
+        st.error(f"Error processing the uploaded file: {e}")
+
+else:
+    st.warning("Please upload a CSV file to generate churn predictions for your dataset.")
+
