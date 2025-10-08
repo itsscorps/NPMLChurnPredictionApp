@@ -204,7 +204,10 @@ st.dataframe(
 
 
   # Horizontal separator line
-st.markdown("---")  # simple clean divider line
+st.markdown(
+    "<hr style='height:3px;border:none;background-color:#333;' />",
+    unsafe_allow_html=True
+)
 # ================================
 # SECTION: DATASET PREDICTION
 # ================================
