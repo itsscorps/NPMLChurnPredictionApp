@@ -182,5 +182,100 @@ st.dataframe(
     },
     hide_index=True
 )
-# Add a navigation button at the bottom
-st.page_link("NPMLChurnPredictionApp/2nd Page.py", label="➡ Go to Loan Default Prediction Page", icon="🔮")
+
+# ================================
+# SECTION: DATASET PREDICTION
+# ================================
+
+st.header("📂 Dataset Prediction")
+
+st.info("Upload a CSV file with customer data to predict churn for all customers using the trained model.")
+
+# File uploader
+uploaded_file = st.file_uploader("Upload Customer Dataset (.csv)", type=["csv"])
+
+if uploaded_file is not None:
+    try:
+        # Read uploaded dataset
+        user_df = pd.read_csv(uploaded_file)
+        st.write("### Uploaded Data Preview")
+        st.dataframe(user_df.head())
+
+        # Ensure dataset columns match training features
+        feature_columns = df_train.drop("Exited", axis=1).columns
+        user_df = user_df.reindex(columns=feature_columns, fill_value=0)
+
+        # Make churn predictions
+        user_df["Churn_Prediction"] = model.predict(user_df)
+        user_df["Churn_Probability"] = model.predict_proba(user_df)[:, 1]
+
+        # Display prediction summary
+        st.write("### Predictions Summary")
+        st.dataframe(user_df.head())
+
+        # Basic statistics
+        churn_rate = user_df["Churn_Prediction"].mean() * 100
+        st.metric("Overall Churn Rate", f"{churn_rate:.2f}%")
+
+        # ======================
+        # VISUALIZATION SECTION
+        # ======================
+
+        st.subheader("📊 Prediction Insights")
+
+        # 1️⃣ Churn vs Non-Churn Bar Chart
+        churn_counts = user_df["Churn_Prediction"].value_counts().rename({0: "Not Churn", 1: "Churn"})
+        st.bar_chart(churn_counts)
+
+        # 2️⃣ Age Distribution by Churn
+        st.write("**Age Distribution by Churn Status**")
+        age_chart = alt.Chart(user_df).mark_boxplot().encode(
+            x=alt.X("Churn_Prediction:N", title="Churn (0 = No, 1 = Yes)"),
+            y=alt.Y("Age:Q", title="Customer Age"),
+            color=alt.Color("Churn_Prediction:N", legend=None)
+        ).properties(width=600)
+        st.altair_chart(age_chart, use_container_width=True)
+
+        # 3️⃣ Balance vs Estimated Salary Colored by Churn
+        st.write("**Balance vs Estimated Salary (Colored by Churn)**")
+        scatter_chart = alt.Chart(user_df).mark_circle(size=60).encode(
+            x="Balance",
+            y="EstimatedSalary",
+            color=alt.Color("Churn_Prediction:N",
+                            scale=alt.Scale(domain=[0, 1], range=["#1f77b4", "#d62728"]),
+                            legend=alt.Legend(title="Churn (0=No,1=Yes)")),
+            tooltip=["Age", "Balance", "EstimatedSalary", "Churn_Probability"]
+        ).interactive().properties(width=700)
+        st.altair_chart(scatter_chart, use_container_width=True)
+
+        # ======================
+        # PATTERN IDENTIFICATION
+        # ======================
+
+        st.subheader("🧠 Pattern Insights")
+
+        churned = user_df[user_df["Churn_Prediction"] == 1]
+        non_churned = user_df[user_df["Churn_Prediction"] == 0]
+
+        avg_age_churn = churned["Age"].mean()
+        avg_balance_churn = churned["Balance"].mean()
+        avg_age_non = non_churned["Age"].mean()
+        avg_balance_non = non_churned["Balance"].mean()
+
+        pattern_text = f"""
+        - Customers predicted to churn tend to have an **average age of {avg_age_churn:.1f}**, 
+          compared to {avg_age_non:.1f} for those not likely to churn.
+        - Their **average balance** is around **${avg_balance_churn:,.0f}**, 
+          compared to **${avg_balance_non:,.0f}** for non-churning customers.
+        - Overall churn rate in the uploaded dataset is **{churn_rate:.2f}%**.
+        """
+        st.markdown(pattern_text)
+
+        st.success("✅ Dataset prediction and analysis complete!")
+
+    except Exception as e:
+        st.error(f"Error processing the uploaded file: {e}")
+
+else:
+    st.warning("Please upload a CSV file to generate churn predictions for your dataset.")
+
