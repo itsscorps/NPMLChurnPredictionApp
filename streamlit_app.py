@@ -2,40 +2,53 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Sidebar overall background (keep it semi-transparent) */
+    /* Force background image on the whole app */
+    .stApp {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                    url("https://images.unsplash.com/photo-1521791136064-7986c2920216");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    /* Remove default block backgrounds */
+    .block-container {
+        background: transparent !important;
+    }
+
+    /* Sidebar semi-transparent */
     section[data-testid="stSidebar"] {
         background-color: rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(6px);  /* frosted glass effect */
         color: white !important;
     }
 
     /* Sidebar labels */
     section[data-testid="stSidebar"] label {
         color: white !important;
-        font-weight: 500;
     }
 
-    /* Sidebar widgets (selectbox, multiselect, text input, number input, file uploader, slider, radio, checkbox) */
+    /* Sidebar widgets */
     section[data-testid="stSidebar"] .stSelectbox div,
     section[data-testid="stSidebar"] .stMultiSelect div,
     section[data-testid="stSidebar"] .stTextInput input,
     section[data-testid="stSidebar"] .stNumberInput input,
     section[data-testid="stSidebar"] .stFileUploader div,
-    section[data-testid="stSidebar"] .stSlider span,
     section[data-testid="stSidebar"] .stRadio div,
     section[data-testid="stSidebar"] .stCheckbox div {
-        background-color: rgba(0, 0, 0, 0.35) !important; /* translucent dark overlay */
+        background-color: rgba(0, 0, 0, 0.35) !important;
         color: white !important;
         border-radius: 6px;
         padding: 4px;
     }
 
-    /* Dropdown options (when expanded) */
+    /* Dropdown options */
     section[data-testid="stSidebar"] div[data-baseweb="select"] * {
         background-color: rgba(0, 0, 0, 0.85) !important;
         color: white !important;
     }
 
-    /* Ensure slider numbers and tick labels are white */
+    /* Slider labels */
     section[data-testid="stSidebar"] .stSlider span {
         color: white !important;
     }
@@ -43,8 +56,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-
 
 
 
