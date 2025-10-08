@@ -333,8 +333,7 @@ else:
         unsafe_allow_html=True
     )
 
-else:
-    st.success(f"Customer will not churn.\n\nProbability of churn: {prediction_proba:.2%}")
+
 
 
 
