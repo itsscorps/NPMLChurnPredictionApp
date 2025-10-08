@@ -1,25 +1,32 @@
 import streamlit as st
-/* Main content container */
-.main .block-container {
-    background: rgba(0, 0, 0, 0.4);   /* semi-transparent dark overlay */
-    backdrop-filter: blur(6px);       /* frosted glass effect */
-    border-radius: 12px;              /* rounded corners */
-    padding: 2rem;
-    color: white !important;          /* ensure text stays white */
-}
+st.markdown(
+    """
+    <style>
+    /* Main content container */
+    .main .block-container {
+        background: rgba(0, 0, 0, 0.4);   /* semi-transparent dark overlay */
+        backdrop-filter: blur(6px);       /* frosted glass effect */
+        border-radius: 12px;              /* rounded corners */
+        padding: 2rem;
+        color: white !important;          /* ensure text stays white */
+    }
 
-/* Make dataframe/table text stand out */
-.stDataFrame, .stTable {
-    background: rgba(0, 0, 0, 0.6) !important;
-    color: white !important;
-    border-radius: 8px;
-}
+    /* Make dataframe/table text stand out */
+    .stDataFrame, .stTable {
+        background: rgba(0, 0, 0, 0.6) !important;
+        color: white !important;
+        border-radius: 8px;
+    }
 
-/* Make metric boxes clearer */
-[data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
-    color: #f9f9f9 !important;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-}
+    /* Make metric boxes clearer */
+    [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
+        color: #f9f9f9 !important;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 
