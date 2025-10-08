@@ -10,16 +10,16 @@ st.markdown(
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        color: white;  /* Make all default text white */
+        color: white;  
     }
 
-    /* Optional: make titles stand out */
+    /* Make titles stand out */
     h1, h2, h3, h4, h5, h6 {
         color: #f9f9f9 !important;
         text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
     }
 
-    /* Optional: adjust info boxes for better contrast */
+    /* Info/alert boxes */
     .stAlert {
         background-color: rgba(255, 255, 255, 0.85) !important;
         color: black !important;
@@ -29,7 +29,31 @@ st.markdown(
     /* Sidebar styling */
     section[data-testid="stSidebar"] {
         background-color: rgba(0, 0, 0, 0.6) !important;
-        color: white;
+        color: white !important;
+    }
+
+    /* ===== Ensure widget labels and text are visible ===== */
+    label, .stSlider label, .stSelectbox label, .stMultiSelect label,
+    .stRadio label, .stCheckbox label, .stTextInput label,
+    .stNumberInput label, .stFileUploader label {
+        color: #ffffff !important;  /* Make all labels white */
+        font-weight: 500;
+    }
+
+    /* Input text inside boxes */
+    .stTextInput input, .stNumberInput input, .stTextArea textarea {
+        color: white !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Selectbox and dropdown items */
+    div[data-baseweb="select"] > div {
+        color: white !important;
+    }
+
+    /* Slider numbers */
+    .stSlider span {
+        color: white !important;
     }
     </style>
     """,
