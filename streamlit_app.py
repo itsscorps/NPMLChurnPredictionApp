@@ -267,18 +267,50 @@ if uploaded_file is not None:
             ).properties(width=600)
             st.altair_chart(age_chart, use_container_width=True)
 
-        # Balance vs Estimated Salary Scatter Plot
-        if "Balance" in user_df.columns and "EstimatedSalary" in user_df.columns:
-            st.write("**Balance vs Estimated Salary (Colored by Churn)**")
-            scatter_chart = alt.Chart(user_df).mark_circle(size=60).encode(
-                x="Balance",
-                y="EstimatedSalary",
-                color=alt.Color("Churn_Prediction:N",
-                                scale=alt.Scale(domain=[0, 1], range=["#1f77b4", "#d62728"]),
-                                legend=alt.Legend(title="Churn (0=No,1=Yes)")),
-                tooltip=["Age", "Balance", "EstimatedSalary", "Churn_Probability"]
-            ).interactive().properties(width=700)
-            st.altair_chart(scatter_chart, use_container_width=True)
+        # ======================
+        # REPLACE THIS SECTION
+        # ======================
+
+        # Churn by Account Balance Group (instead of scatter plot)
+        if "Balance" in user_df.columns:
+            st.write("### Churn Rate by Account Balance Range")
+            user_df["BalanceGroup"] = pd.cut(
+                user_df["Balance"],
+                bins=[0, 50000, 100000, 150000, 200000, 250000],
+                labels=["0-50k", "50k-100k", "100k-150k", "150k-200k", "200k+"]
+            )
+            churn_by_balance_pred = (
+                user_df.groupby("BalanceGroup")["Churn_Prediction"]
+                .mean()
+                .reset_index()
+            )
+
+            st.bar_chart(churn_by_balance_pred.set_index("BalanceGroup"))
+            st.caption(
+                "This shows the predicted churn rate across different account balance ranges. "
+                "Higher churn among customers with very low or very high balances suggests "
+                "these groups may need tailored retention strategies."
+            )
+
+        # Churn by Age Group
+        if "Age" in user_df.columns:
+            st.write("### Churn Rate by Age Group")
+            user_df["AgeGroup"] = pd.cut(
+                user_df["Age"],
+                bins=[18, 30, 40, 50, 60, 100],
+                labels=["18-30", "31-40", "41-50", "51-60", "60+"]
+            )
+            churn_by_age_pred = (
+                user_df.groupby("AgeGroup")["Churn_Prediction"]
+                .mean()
+                .reset_index()
+            )
+
+            st.bar_chart(churn_by_age_pred.set_index("AgeGroup"))
+            st.caption(
+                "Older customers generally show a higher churn rate — "
+                "highlighting the importance of loyalty programs for mature age segments."
+            )
 
         # ======================
         # PATTERN IDENTIFICATION
