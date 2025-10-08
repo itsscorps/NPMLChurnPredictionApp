@@ -201,6 +201,10 @@ st.dataframe(
     },
     hide_index=True
 )
+
+
+  # Horizontal separator line
+st.markdown("---")  # simple clean divider line
 # ================================
 # SECTION: DATASET PREDICTION
 # ================================
