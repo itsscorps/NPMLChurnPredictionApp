@@ -387,7 +387,16 @@ st.markdown(
 
 
 # File uploader
-uploaded_file = st.file_uploader("Upload Customer Dataset (.csv)", type=["csv"])
+st.markdown(
+    """
+    <div style="background-color: rgba(0,0,0,0.55); color:white; padding:15px; border-radius:8px;">
+    <strong>Upload Customer Dataset (.csv)</strong>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+uploaded_file = st.file_uploader("", type=["csv"])
 
 if uploaded_file is not None:
     try:
