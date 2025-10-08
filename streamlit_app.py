@@ -2,31 +2,36 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Main content container */
-    .main .block-container {
-        background: rgba(0, 0, 0, 0.4);   /* semi-transparent dark overlay */
-        backdrop-filter: blur(6px);       /* frosted glass effect */
-        border-radius: 12px;              /* rounded corners */
-        padding: 2rem;
-        color: white !important;          /* ensure text stays white */
+    /* === GLOBAL BACKGROUND === */
+    .stApp {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                    url("https://images.unsplash.com/photo-1521791136064-7986c2920216");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
     }
 
-    /* Make dataframe/table text stand out */
+    /* === MAIN CONTENT AREA === */
+    .main .block-container {
+        background: rgba(0, 0, 0, 0.45);   /* semi-transparent overlay */
+        backdrop-filter: blur(6px);        /* frosted glass effect */
+        border-radius: 12px;
+        padding: 2rem;
+        color: white !important;
+    }
+
+    /* Dataframes and tables */
     .stDataFrame, .stTable {
         background: rgba(0, 0, 0, 0.6) !important;
         color: white !important;
         border-radius: 8px;
     }
 
-    /* Make metric boxes clearer */
+    /* Metric styling */
     [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #f9f9f9 !important;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+        text-shadow: 1p
 
 
 
