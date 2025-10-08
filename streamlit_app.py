@@ -2,46 +2,109 @@ import streamlit as st
 st.markdown(
     """
     <style>
+    /* === GLOBAL BACKGROUND IMAGE === */
+    .stApp {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                    url("https://images.unsplash.com/photo-1521791136064-7986c2920216");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white;
+    }
+
+    /* Remove Streamlit's default solid background that hides image */
+    .block-container {
+        background: transparent !important;
+    }
+
+    /* === MAIN BODY === */
+    .main .block-container {
+        background-color: rgba(0, 0, 0, 0.55) !important;  /* darker overlay */
+        border-radius: 12px;
+        padding: 2rem;
+        color: white !important;
+    }
+
+    /* === SIDEBAR === */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0, 0, 0, 0.55) !important;
+        backdrop-filter: blur(4px);
+        color: white !important;
+    }
+
+    section[data-testid="stSidebar"] label {
+        color: white !important;
+        font-weight: 500;
+    }
+
+    /* Sidebar widgets */
+    section[data-testid="stSidebar"] .stSelectbox div,
+    section[data-testid="stSidebar"] .stMultiSelect div,
+    section[data-testid="stSidebar"] .stTextInput input,
+    section[data-testid="stSidebar"] .stNumberInput input,
+    section[data-testid="stSidebar"] .stFileUploader div,
+    section[data-testid="stSidebar"] .stRadio div,
+    section[data-testid="stSidebar"] .stCheckbox div {
+        background-color: rgba(0, 0, 0, 0.35) !important;
+        color: white !important;
+        border-radius: 6px;
+        padding: 4px;
+    }
+
+    /* Dropdown options */
+    section[data-testid="stSidebar"] div[data-baseweb="select"] * {
+        background-color: rgba(0, 0, 0, 0.85) !important;
+        color: white !important;
+    }
+
+    /* Slider labels */
+    section[data-testid="stSidebar"] .stSlider span {
+        color: white !important;
+    }
+
     /* === FILE UPLOAD BUTTON === */
     [data-testid="stFileUploader"] section div div {
-        background-color: rgba(0, 0, 0, 0.6) !important;  /* dark background */
-        color: white !important;                          /* text color */
+        background-color: rgba(0, 0, 0, 0.6) !important;
+        color: white !important;
         border: 1px solid white;
         border-radius: 8px;
     }
-
-    /* Uploaded file name text */
     [data-testid="stFileUploader"] section div div span {
         color: #f9f9f9 !important;
     }
 
-    /* === GENERAL BODY TEXT FIX === */
+    /* === GENERAL TEXT === */
     .stMarkdown, .stText, .stCaption, .stExpander, .stAlert {
         color: white !important;
     }
-
-    /* Expander background slightly darker */
-    .stExpander {
-        background-color: rgba(0, 0, 0, 0.4) !important;
-        border-radius: 8px;
-    }
-
-    /* Info/warning boxes styling */
-    .stAlert {
-        background-color: rgba(255, 255, 255, 0.15) !important;
-        color: white !important;
-        border-radius: 10px;
-    }
-
-    /* Progress column (probabilities) text */
-    .stDataFrame [role="progressbar"] div {
-        color: white !important;
-    }
-
-    /* Captions below charts */
     .stCaption {
         color: #e0e0e0 !important;
         font-style: italic;
+    }
+
+    /* Info/warning boxes */
+    .stAlert {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        border-radius: 10px;
+    }
+
+    /* Tables & dataframes */
+    .stDataFrame, .stTable {
+        background: rgba(0, 0, 0, 0.65) !important;
+        color: white !important;
+        border-radius: 8px;
+    }
+
+    /* Metrics */
+    [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
+        color: #f9f9f9 !important;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    /* Titles */
+    h1, h2, h3, h4, h5, h6 {
+        color: #f9f9f9 !important;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
     }
     </style>
     """,
