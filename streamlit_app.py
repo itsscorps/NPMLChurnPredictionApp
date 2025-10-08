@@ -35,51 +35,60 @@ with st.expander('Data'):
 # DATA VISUALIZATION
 
 with st.expander('Data Visualization'):
-      
-    chart = alt.Chart(df).mark_circle(size=60).encode(
-    x="Age",
-    y="Balance",
-    color=alt.Color("Exited:N",
-                    scale=alt.Scale(domain=[0, 1], range=["#1f77b4", "#d62728"]),  # blue for 0, red for 1
-                    legend=alt.Legend(title="Churn (Exited)"))
-    ).properties(
-    title="Balance vs Age Colored by Churn"
-    )
 
-    st.altair_chart(chart, use_container_width=True)
-    
-    st.write('### Balance Distribution')
-    st.write('Average Balance by Exited')
-    balance_mean = df.groupby('Exited')['Balance'].mean()
-    st.line_chart(balance_mean)
+    st.subheader("Customer Churn Patterns and Trends")
 
-    st.write('### Age Distribution')
-    st.write('Average Age by Exited')
-    age_mean = df.groupby('Exited')['Age'].mean()
-    st.line_chart(age_mean)
+    st.write("""
+    These charts help visualize how different customer characteristics relate to whether they churned (left the bank) or stayed.
+    Blue = Did **not** churn, Red = **Churned**.
+    """)
 
-    chart = alt.Chart(df).mark_circle(size=60).encode(
-    x="CreditScore",
-    y="NumOfProducts",
-    color=alt.Color("Exited:N",
-                    scale=alt.Scale(domain=[0, 1], range=["#1f77b4", "#d62728"]),  # blue for 0, red for 1
-                    legend=alt.Legend(title="Churn (Exited)"))
-    ).properties(
-    title="CreditScore vs Number of Products Colored by Churn"
-    )
+    # 1️⃣ Churn Rate by Age Group
+    df["AgeGroup"] = pd.cut(df["Age"], bins=[18, 30, 40, 50, 60, 100], 
+                            labels=["18-30", "31-40", "41-50", "51-60", "60+"])
+    churn_by_age = df.groupby("AgeGroup")["Exited"].mean().reset_index()
 
-    st.altair_chart(chart, use_container_width=True)
+    st.write("### 1. Churn Rate by Age Group")
+    st.bar_chart(churn_by_age.set_index("AgeGroup"))
+    st.caption("Older customers (especially 40+) tend to churn more often.")
 
-    st.write('### Credit Score Distribution')
-    st.write('Average Credit Score by Exited')
-    credit_mean = df.groupby('Exited')['CreditScore'].mean()
-    st.line_chart(credit_mean)
+    # 2️⃣ Churn Rate by Account Balance Level
+    df["BalanceGroup"] = pd.cut(df["Balance"], bins=[0, 50000, 100000, 150000, 200000, 250000],
+                                labels=["0-50k", "50k-100k", "100k-150k", "150k-200k", "200k+"])
+    churn_by_balance = df.groupby("BalanceGroup")["Exited"].mean().reset_index()
 
-    st.write('### Number of Products  Distribution')
-    st.write('Number of customers per NumOfProducts grouped by Exited')
-    prod_counts = df.groupby(['NumOfProducts', 'Exited']).size().unstack(fill_value=0)
-    st.line_chart(prod_counts)
+    st.write("### 2. Churn Rate by Account Balance")
+    st.bar_chart(churn_by_balance.set_index("BalanceGroup"))
+    st.caption("Customers with medium to high balances tend to leave more frequently.")
 
+    # 3️⃣ Churn Rate by Number of Products
+    churn_by_products = df.groupby("NumOfProducts")["Exited"].mean().reset_index()
+
+    st.write("### 3. Churn Rate by Number of Products")
+    st.bar_chart(churn_by_products.set_index("NumOfProducts"))
+    st.caption("Customers with only 1 product are more likely to churn, while those with 2 are more loyal.")
+
+    # 4️⃣ Churn Rate by Active Membership
+    churn_by_active = df.groupby("IsActiveMember")["Exited"].mean().reset_index()
+    churn_by_active["IsActiveMember"] = churn_by_active["IsActiveMember"].map({0: "Not Active", 1: "Active"})
+
+    st.write("### 4. Churn Rate by Active Membership")
+    st.bar_chart(churn_by_active.set_index("IsActiveMember"))
+    st.caption("Inactive members have a much higher chance of leaving the bank.")
+
+    # 5️⃣ Churn Rate by Gender
+    churn_by_gender = df.groupby("Gender")["Exited"].mean().reset_index()
+
+    st.write("### 5. Churn Rate by Gender")
+    st.bar_chart(churn_by_gender.set_index("Gender"))
+    st.caption("There are slight differences in churn rate between male and female customers.")
+
+    # 6️⃣ Churn Rate by Country
+    churn_by_geo = df.groupby("Geography")["Exited"].mean().reset_index()
+
+    st.write("### 6. Churn Rate by Country")
+    st.bar_chart(churn_by_geo.set_index("Geography"))
+    st.caption("German customers show the highest churn rate, while French customers are the most stable.")
 
 # SIDEBAR FOR USER INPUT
 
