@@ -1,25 +1,21 @@
 import streamlit as st
-import base64
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+            url("https://images.unsplash.com/photo-1556742041-427f5d2d0d5f");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-def add_bg_from_local(image_file):
-    with open(image_file, "rb") as image:
-        encoded_string = base64.b64encode(image.read()).decode()
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("data:image/png;base64,{encoded_string}");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-add_bg_from_local('background.png')
 
 import numpy as np
 import pandas as pd
