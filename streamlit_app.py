@@ -316,16 +316,20 @@ st.subheader("Prediction Result")
 
 if prediction == 1:
     st.markdown(
-        f'<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
-        f'Customer will churn.<br>Probability of churn: {prediction_proba:.2%}'
-        '</div>',
+        f"""
+        <div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">
+        Customer will churn.<br>Probability of churn: {prediction_proba:.2%}
+        </div>
+        """,
         unsafe_allow_html=True
     )
 else:
     st.markdown(
-        f'<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
-        f'Customer will not churn.<br>Probability of churn: {prediction_proba:.2%}'
-        '</div>',
+        f"""
+        <div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">
+        Customer will not churn.<br>Probability of churn: {prediction_proba:.2%}
+        </div>
+        """,
         unsafe_allow_html=True
     )
 
