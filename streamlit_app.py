@@ -150,8 +150,13 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 
 # APP TITLE AND DESCRIPTION
+col1, col2 = st.columns([1, 4])
+with col1:
+    st.image("background.png", width=80)
+with col2:
+    st.title("Bank Customer Churn Prediction App")
 
-st.title('Bank Customer Churn Prediction App')
+
 st.markdown(
     '<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
     'This app predicts whether a customer will churn using a trained Gradient Boosting model.'
