@@ -73,19 +73,13 @@ st.markdown(
         color: #f9f9f9 !important;
     }
 
-    /* === GENERAL TEXT === */
-    .stMarkdown, .stText, .stCaption, .stExpander, .stAlert {
+    /* === GENERAL BODY TEXT === */
+    .stMarkdown, .stText, .stCaption, .stExpander {
         color: white !important;
     }
     .stCaption {
         color: #e0e0e0 !important;
         font-style: italic;
-    }
-
-    /* Info/warning boxes */
-    .stAlert {
-        background-color: rgba(255, 255, 255, 0.15) !important;
-        border-radius: 10px;
     }
 
     /* Tables & dataframes */
@@ -105,6 +99,38 @@ st.markdown(
     h1, h2, h3, h4, h5, h6 {
         color: #f9f9f9 !important;
         text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    /* === ALERT / INFO / SUCCESS / WARNING / ERROR BOXES === */
+    /* Info */
+    .stAlert[data-testid="stInfo"] {
+        background-color: rgba(0, 0, 0, 0.55) !important;
+        color: white !important;
+        border-radius: 10px;
+    }
+    .stAlert[data-testid="stInfo"] .stAlertContent svg {
+        fill: white !important;
+    }
+
+    /* Success */
+    .stAlert[data-testid="stSuccess"] {
+        background-color: rgba(0, 128, 0, 0.55) !important;
+        color: white !important;
+        border-radius: 10px;
+    }
+
+    /* Warning */
+    .stAlert[data-testid="stWarning"] {
+        background-color: rgba(255, 165, 0, 0.55) !important;
+        color: white !important;
+        border-radius: 10px;
+    }
+
+    /* Error */
+    .stAlert[data-testid="stError"] {
+        background-color: rgba(255, 0, 0, 0.55) !important;
+        color: white !important;
+        border-radius: 10px;
     }
     </style>
     """,
