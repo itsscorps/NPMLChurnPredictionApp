@@ -2,19 +2,51 @@ import streamlit as st
 st.markdown(
     """
     <style>
+    /* Apply a background image to the entire app */
     .stApp {
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
-            url("https://images.unsplash.com/photo-1556742041-427f5d2d0d5f");
+        background-image: url("https://images.unsplash.com/photo-1507679799987-c73779587ccf");
         background-size: cover;
         background-position: center;
-        background-repeat: no-repeat;
         background-attachment: fixed;
+        position: relative;
+    }
+
+    /* Add a dark semi-transparent overlay to dim the background */
+    .stApp::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);  /* Adjust transparency here (0.3–0.7 looks best) */
+        backdrop-filter: blur(6px);  /* The actual blur effect */
+        z-index: 0;
+    }
+
+    /* Ensure all Streamlit content stays above the overlay */
+    .block-container {
+        position: relative;
+        z-index: 1;
+        color: white;  /* Optional: makes text readable if you use a dark overlay */
+    }
+
+    /* Optional: give the sidebar a slightly opaque dark look */
+    section[data-testid="stSidebar"] {
+        background-color: rgba(0, 0, 0, 0.6) !important;
+        backdrop-filter: blur(4px);
+        color: white;
+    }
+
+    /* Optional: make headers stand out a bit more */
+    h1, h2, h3, h4, h5 {
+        color: #f8f9fa !important;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 import numpy as np
