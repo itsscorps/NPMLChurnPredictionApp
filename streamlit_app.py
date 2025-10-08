@@ -182,3 +182,5 @@ st.dataframe(
     },
     hide_index=True
 )
+# Add a navigation button at the bottom
+st.page_link("pages/1_Second_Prediction.py", label="➡ Go to Loan Default Prediction Page", icon="🔮")
