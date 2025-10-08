@@ -152,7 +152,12 @@ from sklearn.ensemble import GradientBoostingClassifier
 # APP TITLE AND DESCRIPTION
 
 st.title('Bank Customer Churn Prediction App')
-st.info('This app predicts whether a customer will churn using a trained Gradient Boosting model.')
+st.markdown(
+    '<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
+    'This app predicts whether a customer will churn using a trained Gradient Boosting model.'
+    '</div>',
+    unsafe_allow_html=True
+)
 
 
 # LOAD AND EXPLORE DATA
