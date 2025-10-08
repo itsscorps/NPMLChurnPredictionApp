@@ -183,4 +183,4 @@ st.dataframe(
     hide_index=True
 )
 # Add a navigation button at the bottom
-st.page_link("pages/2nd Page.py", label="➡ Go to Loan Default Prediction Page", icon="🔮")
+st.page_link("NPMLChurnPredictionApp/2nd Page.py", label="➡ Go to Loan Default Prediction Page", icon="🔮")
