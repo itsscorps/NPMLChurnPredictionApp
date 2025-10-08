@@ -2,9 +2,9 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    /* Sidebar overall background */
+    /* Sidebar overall background (keep it semi-transparent) */
     section[data-testid="stSidebar"] {
-        background-color: rgba(0, 0, 0, 0.7) !important;
+        background-color: rgba(0, 0, 0, 0.5) !important;
         color: white !important;
     }
 
@@ -14,7 +14,7 @@ st.markdown(
         font-weight: 500;
     }
 
-    /* Sidebar selectboxes, sliders, radios, checkboxes, inputs */
+    /* Sidebar widgets (selectbox, multiselect, text input, number input, file uploader, slider, radio, checkbox) */
     section[data-testid="stSidebar"] .stSelectbox div,
     section[data-testid="stSidebar"] .stMultiSelect div,
     section[data-testid="stSidebar"] .stTextInput input,
@@ -23,19 +23,19 @@ st.markdown(
     section[data-testid="stSidebar"] .stSlider span,
     section[data-testid="stSidebar"] .stRadio div,
     section[data-testid="stSidebar"] .stCheckbox div {
-        background-color: rgba(255, 255, 255, 0.1) !important; /* dark translucent background */
-        color: white !important;  /* text color */
+        background-color: rgba(0, 0, 0, 0.35) !important; /* translucent dark overlay */
+        color: white !important;
         border-radius: 6px;
         padding: 4px;
     }
 
-    /* Dropdown options */
+    /* Dropdown options (when expanded) */
     section[data-testid="stSidebar"] div[data-baseweb="select"] * {
         background-color: rgba(0, 0, 0, 0.85) !important;
         color: white !important;
     }
 
-    /* Ensure slider track numbers are visible */
+    /* Ensure slider numbers and tick labels are white */
     section[data-testid="stSidebar"] .stSlider span {
         color: white !important;
     }
