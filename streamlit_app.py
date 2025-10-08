@@ -12,38 +12,17 @@ st.markdown(
         color: white;
     }
 
-    /* === MAIN CONTENT AREA === */
+    /* === DARKER MAIN BODY (like sidebar) === */
     .main .block-container {
-        background: rgba(0, 0, 0, 0.45);   /* semi-transparent overlay */
-        backdrop-filter: blur(6px);        /* frosted glass effect */
+        background-color: rgba(0, 0, 0, 0.55) !important; /* darker, same as sidebar */
         border-radius: 12px;
         padding: 2rem;
         color: white !important;
     }
 
-    /* Dataframes and tables */
-    .stDataFrame, .stTable {
-        background: rgba(0, 0, 0, 0.6) !important;
-        color: white !important;
-        border-radius: 8px;
-    }
-
-    /* Metric styling */
-    [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
-        color: #f9f9f9 !important;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-
-    /* Titles */
-    h1, h2, h3, h4, h5, h6 {
-        color: #f9f9f9 !important;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-
-    /* === SIDEBAR === */
+    /* Sidebar stays consistent */
     section[data-testid="stSidebar"] {
         background-color: rgba(0, 0, 0, 0.55) !important;
-        backdrop-filter: blur(6px);
         color: white !important;
     }
 
@@ -52,34 +31,23 @@ st.markdown(
         font-weight: 500;
     }
 
-    /* Sidebar widgets */
-    section[data-testid="stSidebar"] .stSelectbox div,
-    section[data-testid="stSidebar"] .stMultiSelect div,
-    section[data-testid="stSidebar"] .stTextInput input,
-    section[data-testid="stSidebar"] .stNumberInput input,
-    section[data-testid="stSidebar"] .stFileUploader div,
-    section[data-testid="stSidebar"] .stRadio div,
-    section[data-testid="stSidebar"] .stCheckbox div {
-        background-color: rgba(0, 0, 0, 0.35) !important;
+    /* Ensure tables & dataframes stand out */
+    .stDataFrame, .stTable {
+        background: rgba(0, 0, 0, 0.65) !important;
         color: white !important;
-        border-radius: 6px;
-        padding: 4px;
+        border-radius: 8px;
     }
 
-    /* Dropdown options */
-    section[data-testid="stSidebar"] div[data-baseweb="select"] * {
-        background-color: rgba(0, 0, 0, 0.85) !important;
-        color: white !important;
-    }
-
-    /* Slider labels */
-    section[data-testid="stSidebar"] .stSlider span {
-        color: white !important;
+    /* Titles */
+    h1, h2, h3, h4, h5, h6 {
+        color: #f9f9f9 !important;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 
