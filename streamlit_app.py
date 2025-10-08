@@ -315,7 +315,20 @@ prediction_proba = model.predict_proba(input_df)[0][1]  # Probability of churn (
 st.subheader("Prediction Result")
 
 if prediction == 1:
-    st.error(f"Customer will churn.\n\nProbability of churn: {prediction_proba:.2%}")
+    st.markdown(
+        f'<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
+        f'Customer will churn.<br>Probability of churn: {prediction_proba:.2%}'
+        '</div>',
+        unsafe_allow_html=True
+    )
+else:
+    st.markdown(
+        f'<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
+        f'Customer will not churn.<br>Probability of churn: {prediction_proba:.2%}'
+        '</div>',
+        unsafe_allow_html=True
+    )
+
 else:
     st.success(f"Customer will not churn.\n\nProbability of churn: {prediction_proba:.2%}")
 
