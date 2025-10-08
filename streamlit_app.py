@@ -39,11 +39,10 @@ with st.expander('Data Visualization'):
     st.subheader("Customer Churn Patterns and Trends")
 
     st.write("""
-    These charts help visualize how different customer characteristics relate to whether they churned (left the bank) or stayed.
-    Blue = Did **not** churn, Red = **Churned**.
+    These charts help visualize how different customer characteristics relate to churn rate**.
     """)
 
-    # 1️⃣ Churn Rate by Age Group
+    # Churn Rate by Age Group
     df["AgeGroup"] = pd.cut(df["Age"], bins=[18, 30, 40, 50, 60, 100],
                             labels=["18-30", "31-40", "41-50", "51-60", "60+"])
     churn_by_age = df.groupby("AgeGroup")["Exited"].mean().reset_index()
@@ -52,7 +51,7 @@ with st.expander('Data Visualization'):
     st.bar_chart(churn_by_age.set_index("AgeGroup"))
     st.caption("Older customers (especially 40+) tend to churn more often.")
 
-    # 2️⃣ Churn Rate by Account Balance Level
+    # Churn Rate by Account Balance Level
     df["BalanceGroup"] = pd.cut(df["Balance"], bins=[0, 50000, 100000, 150000, 200000, 250000],
                                 labels=["0-50k", "50k-100k", "100k-150k", "150k-200k", "200k+"])
     churn_by_balance = df.groupby("BalanceGroup")["Exited"].mean().reset_index()
@@ -61,14 +60,14 @@ with st.expander('Data Visualization'):
     st.bar_chart(churn_by_balance.set_index("BalanceGroup"))
     st.caption("Customers with medium to high balances tend to leave more frequently.")
 
-    # 3️⃣ Churn Rate by Number of Products
+    # Churn Rate by Number of Products
     churn_by_products = df.groupby("NumOfProducts")["Exited"].mean().reset_index()
 
     st.write("### 3. Churn Rate by Number of Products")
     st.bar_chart(churn_by_products.set_index("NumOfProducts"))
     st.caption("Customers with only 1 product are more likely to churn, while those with 2 are more loyal.")
 
-    # 4️⃣ Churn Rate by Active Membership
+    # Churn Rate by Active Membership
     churn_by_active = df.groupby("IsActiveMember")["Exited"].mean().reset_index()
     churn_by_active["IsActiveMember"] = churn_by_active["IsActiveMember"].map({0: "Not Active", 1: "Active"})
 
@@ -76,7 +75,7 @@ with st.expander('Data Visualization'):
     st.bar_chart(churn_by_active.set_index("IsActiveMember"))
     st.caption("Inactive members have a much higher chance of leaving the bank.")
 
-    # 5️⃣ Churn Rate by Gender
+    # Churn Rate by Gender
     # Handle Gender column (if it's 0/1 numeric)
     if df["Gender"].dtype in [int, float]:
         df["Gender"] = df["Gender"].map({0: "Female", 1: "Male"})
@@ -86,7 +85,7 @@ with st.expander('Data Visualization'):
     st.bar_chart(churn_by_gender.set_index("Gender"))
     st.caption("There are slight differences in churn rate between male and female customers.")
 
-    # 6️⃣ Churn Rate by Country (handle one-hot encoded Geography)
+    # Churn Rate by Country (handle one-hot encoded Geography)
     if "Geography" in df.columns:
         churn_by_geo = df.groupby("Geography")["Exited"].mean().reset_index()
     else:
@@ -206,7 +205,7 @@ st.dataframe(
 # SECTION: DATASET PREDICTION
 # ================================
 
-st.header("📂 Dataset Prediction")
+st.header("Dataset Prediction")
 
 st.info("Upload a CSV file with customer data to predict churn for all customers using the trained model.")
 
@@ -252,13 +251,13 @@ if uploaded_file is not None:
         # ======================
         # VISUALIZATION SECTION
         # ======================
-        st.subheader("📊 Prediction Insights")
+        st.subheader("Prediction Insights")
 
-        # 1️⃣ Churn vs Non-Churn Bar Chart
+        # Churn vs Non-Churn Bar Chart
         churn_counts = user_df["Churn_Prediction"].value_counts().rename({0: "Not Churn", 1: "Churn"})
         st.bar_chart(churn_counts)
 
-        # 2️⃣ Age Distribution by Churn
+        # Age Distribution by Churn
         if "Age" in user_df.columns:
             st.write("**Age Distribution by Churn Status**")
             age_chart = alt.Chart(user_df).mark_boxplot().encode(
@@ -268,7 +267,7 @@ if uploaded_file is not None:
             ).properties(width=600)
             st.altair_chart(age_chart, use_container_width=True)
 
-        # 3️⃣ Balance vs Estimated Salary Scatter Plot
+        # Balance vs Estimated Salary Scatter Plot
         if "Balance" in user_df.columns and "EstimatedSalary" in user_df.columns:
             st.write("**Balance vs Estimated Salary (Colored by Churn)**")
             scatter_chart = alt.Chart(user_df).mark_circle(size=60).encode(
@@ -284,7 +283,7 @@ if uploaded_file is not None:
         # ======================
         # PATTERN IDENTIFICATION
         # ======================
-        st.subheader("🧠 Pattern Insights")
+        st.subheader("Pattern Insights")
 
         churned = user_df[user_df["Churn_Prediction"] == 1]
         non_churned = user_df[user_df["Churn_Prediction"] == 0]
@@ -309,7 +308,7 @@ if uploaded_file is not None:
         # ======================
         # DOWNLOAD RESULTS
         # ======================
-        st.subheader("⬇️ Download Results")
+        st.subheader("Download Results")
 
         csv = user_df.to_csv(index=False).encode('utf-8')
         st.download_button(
@@ -319,7 +318,7 @@ if uploaded_file is not None:
             mime="text/csv"
         )
 
-        st.success("✅ Dataset prediction and analysis complete!")
+        st.success("Dataset prediction and analysis complete!")
 
     except Exception as e:
         st.error(f"Error processing the uploaded file: {e}")
