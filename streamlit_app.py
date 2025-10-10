@@ -138,10 +138,6 @@ st.markdown(
 )
 
 
-
-
-
-
 import numpy as np
 import pandas as pd
 import joblib
@@ -155,6 +151,7 @@ with col1:
     st.image("background.png", width=80)
 with col2:
     st.title("Bank Customer Churn Prediction App")
+    st.subheader("Single Prediction")
 
 
 st.markdown(
