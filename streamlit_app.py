@@ -151,6 +151,11 @@ with col1:
     st.image("background.png", width=80)
 with col2:
     st.title("Bank Customer Churn Prediction App")
+      # Horizontal separator line
+st.markdown(
+    "<hr style='height:3px;border:none;background-color:#333;' />",
+    unsafe_allow_html=True
+    
     st.subheader("Single Prediction")
 
 
