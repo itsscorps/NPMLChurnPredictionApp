@@ -156,7 +156,7 @@ st.markdown(
     "<hr style='height:3px;border:none;background-color:#333;' />",
     unsafe_allow_html=True)
     
-    st.subheader("Single Prediction")
+st.subheader("Single Prediction")
 
 
 st.markdown(
