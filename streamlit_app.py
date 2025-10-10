@@ -323,7 +323,7 @@ if prediction == 1:
     st.markdown(
         f"""
         <div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">
-        Customer will churn.<br>Probability of churn: {prediction_proba:.2%}
+        Result = 1. Customer will churn.<br>Probability of churn: {prediction_proba:.2%}
         </div>
         """,
         unsafe_allow_html=True
@@ -332,14 +332,11 @@ else:
     st.markdown(
         f"""
         <div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">
-        Customer will not churn.<br>Probability of churn: {prediction_proba:.2%}
+        Result = 0. Customer will not churn.<br>Probability of churn: {prediction_proba:.2%}
         </div>
         """,
         unsafe_allow_html=True
     )
-
-
-
 
 
 # DISPLAY PROBABILITY TABLE
@@ -381,7 +378,7 @@ st.markdown(
 # SECTION: DATASET PREDICTION
 # ================================
 
-st.header("Dataset Prediction")
+st.header("Batch Prediction(DATASET)")
 
 st.markdown(
     '<div style="background-color: rgba(0,0,0,0.55); color:white; padding:10px; border-radius:8px;">'
